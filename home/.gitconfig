@@ -1,0 +1,36 @@
+[core]
+	editor = nvim
+	ignorecase = false
+	pager = delta
+
+[user]
+	name = arata
+	email = arata04962@gmail.com
+	signingKey = 1CF837AE883318B11F08A2498082F1F5080E4748
+
+[push]
+	default = current
+
+[gpg]
+	program = gpg
+
+[commit]
+	gpgsign = true
+	template = /home/user01/.gitmessage
+
+[tag]
+	forceSignAnnotated = true
+
+[ghq]
+	root = /home/user01/src
+
+[color]
+	ui = true
+
+[alias]
+	graph = log --pretty=format:'%Cgreen[%cd] %Cblue%h %Cred<%cn> %Creset%s' --date=short  --decorate --graph --branches --tags --remotes
+  s = status
+  c = commit
+
+[pull]
+	rebase = false
