@@ -7,7 +7,7 @@ update:
 	git commit -m ":sparkles: update"
 	git push
 
-allinstall: install gnome fish git tmux vim ssh gpg fcitx code docker
+allinstall: install gnome fish git tmux vim ssh gpg fcitx code docker ctf
 
 install:
 	sudo pacman-mirrors --fasttrack
@@ -73,3 +73,6 @@ docker:
 	sudo usermod -aG docker ${USER}
 	sudo systemctl enable docker
 	sudo systemctl start docker
+
+ctf:
+	sudo pacman -S radare2-cutter r2ghidra-dec
