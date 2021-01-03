@@ -13,7 +13,7 @@ install:
 	sudo pacman-mirrors --fasttrack
 	sudo pacman -Syu
 	sudo pacman -S base-devel chromium p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord
-	yay -S slack-desktop
+	yay -S slack-desktop bvi
 
 gnome:
 	dconf load / < ${CURDIR}/gnome/gnome.dconf
