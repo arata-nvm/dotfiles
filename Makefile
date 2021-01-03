@@ -7,7 +7,7 @@ update:
 	git commit -m ":sparkles: update"
 	git push
 
-allinstall: install gnome fish git tmux vim ssh gpg fcitx code docker ctf
+allinstall: install gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf
 
 install:
 	sudo pacman-mirrors --fasttrack
@@ -73,6 +73,13 @@ docker:
 	sudo usermod -aG docker ${USER}
 	sudo systemctl enable docker
 	sudo systemctl start docker
+
+mpv:
+	sudo pacman -S mpv
+	mkdir -p ${HOME}/.config/mpv/scripts
+	ln -svf ${CURDIR}/home/.config/mpv/input.conf ${HOME}/.config/mpv/input.conf
+	ln -svf ${CURDIR}/home/.config/mpv/mpv.conf ${HOME}/.config/mpv/mpv.conf
+	ln -svf ${CURDIR}/home/.config/mpv/scripts/ontop-playback.lua ${HOME}/.config/mpv/scripts/ontop-playback.lua
 
 ctf:
 	sudo pacman -S radare2-cutter r2ghidra-dec
