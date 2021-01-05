@@ -2,5 +2,6 @@
     "editor.minimap.enabled": false,
     "workbench.colorTheme": "Nord",
     "editor.formatOnSave": true,
-    "rust-analyzer.lens.implementations": false
+    "rust-analyzer.lens.implementations": false,
+    "rust-analyzer.inlayHints.typeHints": false
 }
