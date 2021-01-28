@@ -7,13 +7,17 @@ update:
 	git commit -m ":sparkles: update"
 	git push
 
-allinstall: install gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf
+allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf
 
 install:
 	sudo pacman-mirrors --fasttrack
 	sudo pacman -Syu
 	sudo pacman -S base-devel chromium p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl
 	yay -S slack-desktop bvi
+
+font:
+	sudo pacman -S noto-fonts-emoji
+	sudo ln -svf ${CURDIR}/etc/fonts/local.conf /etc/fonts/local.conf
 
 gnome:
 	dconf load / < ${CURDIR}/gnome/gnome.dconf
