@@ -1,7 +1,12 @@
 {
     "editor.minimap.enabled": false,
-    "workbench.colorTheme": "Nord",
+    "workbench.colorTheme": "Verdandi Alter",
     "editor.formatOnSave": true,
     "rust-analyzer.lens.implementations": false,
-    "rust-analyzer.inlayHints.typeHints": false
+    "rust-analyzer.inlayHints.typeHints": false,
+    "python.linting.flake8Enabled": true,
+    "vim.autoSwitchInputMethod.enable": true,
+    "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx5-remote",
+    "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx5-remote {im}",
+    "vim.autoSwitchInputMethod.defaultIM": "-c"
 }

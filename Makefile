@@ -7,12 +7,12 @@ update:
 	git commit -m ":sparkles: update"
 	git push
 
-allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf
+allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf alacritty
 
 install:
 	sudo pacman-mirrors --fasttrack
 	sudo pacman -Syu
-	sudo pacman -S base-devel chromium p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine
+	sudo pacman -S base-devel chromium p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd
 	yay -S slack-desktop bvi
 
 font:
@@ -87,3 +87,8 @@ mpv:
 
 ctf:
 	sudo pacman -S radare2-cutter r2ghidra-dec
+
+alacritty:
+	sudo pacman -S alacritty
+	mkdir -p ${HOME}/.config/alacritty
+	ln -svf ${CURDIR}/home/.config/alacritty/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
