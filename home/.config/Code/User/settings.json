@@ -8,5 +8,7 @@
     "vim.autoSwitchInputMethod.enable": true,
     "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx5-remote",
     "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx5-remote {im}",
-    "vim.autoSwitchInputMethod.defaultIM": "-c"
+    "vim.autoSwitchInputMethod.defaultIM": "-c",
+    "workbench.iconTheme": "verdandi",
+    "workbench.editor.decorations.badges": true,
 }

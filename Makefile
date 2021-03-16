@@ -7,7 +7,7 @@ update:
 	git commit -m ":sparkles: update"
 	git push
 
-allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf alacritty
+allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf alacritty i3
 
 install:
 	sudo pacman-mirrors --fasttrack
@@ -92,3 +92,8 @@ alacritty:
 	sudo pacman -S alacritty
 	mkdir -p ${HOME}/.config/alacritty
 	ln -svf ${CURDIR}/home/.config/alacritty/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
+
+i3:
+	sudo pacman -S i3
+	mkdir -p ${HOME}/.config/i3
+	ln -svf ${CURDIR}/home/.config/i3/config ${HOME}/.config/i3/config
