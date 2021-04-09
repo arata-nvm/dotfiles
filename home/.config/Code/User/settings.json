@@ -1,6 +1,5 @@
 {
     "editor.minimap.enabled": false,
-    "workbench.colorTheme": "Verdandi Alter",
     "editor.formatOnSave": true,
     "rust-analyzer.lens.implementations": false,
     "rust-analyzer.inlayHints.typeHints": false,
@@ -11,4 +10,5 @@
     "vim.autoSwitchInputMethod.defaultIM": "-c",
     "workbench.iconTheme": "verdandi",
     "workbench.editor.decorations.badges": true,
+    "workbench.colorTheme": "GitHub Dark",
 }
