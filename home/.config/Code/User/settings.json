@@ -11,4 +11,6 @@
     "workbench.iconTheme": "verdandi",
     "workbench.editor.decorations.badges": true,
     "workbench.colorTheme": "GitHub Dark",
+    "go.toolsManagement.autoUpdate": true,
+    "window.openFoldersInNewWindow": "on",
 }
