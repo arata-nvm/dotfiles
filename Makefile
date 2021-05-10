@@ -9,6 +9,10 @@ update:
 
 allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf alacritty i3
 
+wslinstall: fish git tmux vim ssh gpg
+	sudo pacman -Syu
+	sudo pacman -S base-devel
+
 install:
 	sudo pacman-mirrors --fasttrack
 	sudo pacman -Syu
@@ -47,10 +51,11 @@ vim:
 	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.vimrc
 	mkdir -p ${HOME}/.config/nvim
 	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.config/nvim/init.vim
-	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	sh -c 'curl -fLo "$${XDG_DATA_HOME:-$$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	echo "EDITOR=/usr/bin/nvim" >> ~/.bash_profile
 
 ssh:
+	sudo pacman -S openssh
 	mkdir -p ${HOME}/.ssh
 	ln -svf ${CURDIR}/home/.ssh/id_rsa ${HOME}/.ssh/id_rsa 
 	chmod 0600 ${HOME}/.ssh/id_rsa
