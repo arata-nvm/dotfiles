@@ -78,7 +78,6 @@ code:
 
 docker:
 	sudo pacman -S docker docker-compose
-	sudo groupadd docker
 	sudo usermod -aG docker ${USER}
 	sudo systemctl enable docker
 	sudo systemctl start docker
@@ -91,7 +90,7 @@ mpv:
 	ln -svf ${CURDIR}/home/.config/mpv/scripts/ontop-playback.lua ${HOME}/.config/mpv/scripts/ontop-playback.lua
 
 ctf:
-	sudo pacman -S radare2-cutter r2ghidra-dec
+	sudo pacman -S iaito r2ghidra
 
 alacritty:
 	sudo pacman -S alacritty
