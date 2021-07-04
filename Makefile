@@ -74,7 +74,6 @@ fcitx:
 
 code:
 	yay -S visual-studio-code-bin
-	ln -svf ${CURDIR}/home/.config/Code/User/settings.json ${HOME}/.config/Code/User/settings.json
 
 docker:
 	sudo pacman -S docker docker-compose
