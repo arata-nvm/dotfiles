@@ -3,7 +3,7 @@ YAY := yay -S --noconfirm
 SYSTEMD := sudo systemctl enable
 
 define link
-	mkdir -p $(HOME)/$(1)
+	mkdir -p $(shell dirname $(HOME)/$(1))
 	ln -svf $(CURDIR)/home/$(1) $(HOME)/$(1)
 endef
 
