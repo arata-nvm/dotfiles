@@ -17,7 +17,7 @@ update:
 	git push
 
 .PHONY: allinstall
-allinstall: pacman yay secrets font gnome fish git tmux vim fcitx code docker mpv ctf alacritty i3
+allinstall: pacman yay secrets font gnome fish git tmux vim fcitx code mpv ctf alacritty i3
 
 .PHONY: wslinstall
 wslinstall: fish git tmux vim
