@@ -34,7 +34,7 @@ pacman:
 yay:
 	git clone https://aur.archlinux.org/yay.git /tmp/yay
 	cd /tmp/yay && makepkg -si --noconfirm
-	$(YAY) slack-desktop bvi
+	$(YAY) slack-desktop bvi google-chrome
 
 .PHONY: secrets
 secrets:
@@ -63,8 +63,8 @@ font:
 
 .PHONY: gnome
 gnome:
-	$(PACMAN) evince gdm gnome-backgrounds gnome-control-center gnome-keyring gnome-terminal nautilus sushi
-	$(YAY) xcursor-breeze papirus-maia-icon-theme-git
+	$(PACMAN) evince gdm gnome-backgrounds gnome-control-center gnome-keyring gnome-terminal gnome-tweaks nautilus sushi gnome-shell-extension-appindicator libappindicator-gtk3
+	$(YAY) xcursor-breeze papirus-maia-icon-theme-git gnome-shell-extension-pop-shell-bin
 	$(SYSTEMD) gdm.service
 	dconf load / < $(CURDIR)/gnome/gnome.dconf
 
