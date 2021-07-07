@@ -98,10 +98,8 @@ ctf:
 
 alacritty:
 	$(PACMAN) alacritty
-	mkdir -p ${HOME}/.config/alacritty
 	$(call link,.config/alacritty/alacritty.yml)
 
 i3:
 	$(PACMAN) i3
-	mkdir -p ${HOME}/.config/i3
 	$(call link,.config/i3/config)
