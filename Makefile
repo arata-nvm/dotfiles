@@ -38,17 +38,16 @@ yay:
 
 .PHONY: secrets
 secrets:
-	wget https://github.com/dropbox/dbxcli/releases/download/v3.0.0/dbxcli-linux-amd64 -o /tmp/dbxcli
+	wget https://github.com/dropbox/dbxcli/releases/download/v3.0.0/dbxcli-linux-amd64 -O /tmp/dbxcli
 	chmod +x /tmp/dbxcli
 	
-	// ssh
+	# ssh
 	/tmp/dbxcli get /Linux/.ssh/id_rsa $(HOME)/.ssh/id_rsa
 	/tmp/dbxcli get /Linux/.ssh/id_rsa.pub $(HOME)/.ssh/id_rsa.pub
 	chmod 600 $(HOME)/.ssh/id_rsa
 	chmod 600 $(HOME)/.ssh/id_rsa.pub
-	ssh-add $(HOME)/.ssh/id_rsa
 	
-	// gpg
+	# gpg
 	/tmp/dbxcli get /Linux/gpg/private_key.gpg /tmp/private_key.gpg
 	/tmp/dbxcli get /Linux/gpg/public_key.gpg /tmp/public_key.gpg
 	/tmp/dbxcli get /Linux/gpg/ownertrust.txt /tmp/ownertrust.txt
