@@ -28,7 +28,7 @@ wslinstall: fish git tmux vim
 pacman:
 	sudo reflector --verbose --country 'Japan' --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 	sudo pacman -Syu
-	$(PACMAN) base-devel p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd wget openssh
+	$(PACMAN) base-devel p7zip trash-cli bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd wget openssh
 
 .PHONY: yay
 yay:
