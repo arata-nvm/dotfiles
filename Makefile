@@ -1,5 +1,5 @@
-PACMAN := sudo pacman -S
-YAY := yay -S
+PACMAN := sudo pacman -S --noconfirm
+YAY := yay -S --noconfirm
 SYSTEMD := sudo systemctl enable
 
 define link
