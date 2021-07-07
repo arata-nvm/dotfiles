@@ -15,16 +15,20 @@ update:
 	git commit -m ":sparkles: update"
 	git push
 
-allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf alacritty i3
+allinstall: pacman yay font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf alacritty i3
 
 wslinstall: fish git tmux vim ssh gpg
 	sudo pacman -Syu
 	$(PACMAN) base-devel
 
-install:
+pacman:
 	sudo pacman-mirrors --fasttrack
 	sudo pacman -Syu
 	$(PACMAN) base-devel p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd
+
+yay:
+	git clone https://aur.archlinux.org/yay.git /tmp/yay
+	cd /tmp/yay && makepkg -si
 	$(YAY) slack-desktop bvi
 
 font:
