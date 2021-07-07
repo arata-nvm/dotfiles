@@ -33,7 +33,7 @@ pacman:
 .PHONY: yay
 yay:
 	git clone https://aur.archlinux.org/yay.git /tmp/yay
-	cd /tmp/yay && makepkg -si
+	cd /tmp/yay && makepkg -si --noconfirm
 	$(YAY) slack-desktop bvi
 
 .PHONY: secrets
