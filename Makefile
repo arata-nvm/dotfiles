@@ -1,3 +1,6 @@
+PACMAN := sudo pacman -S
+YAY := yay -S
+
 .PHONY: allinstall update
 .DEFAULT_GOAL := update
  
@@ -11,23 +14,23 @@ allinstall: install font gnome fish git tmux vim ssh gpg fcitx code docker mpv c
 
 wslinstall: fish git tmux vim ssh gpg
 	sudo pacman -Syu
-	sudo pacman -S base-devel
+	$(PACMAN) base-devel
 
 install:
 	sudo pacman-mirrors --fasttrack
 	sudo pacman -Syu
-	sudo pacman -S base-devel p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd
-	yay -S slack-desktop bvi
+	$(PACMAN) base-devel p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd
+	$(YAY) slack-desktop bvi
 
 font:
-	sudo pacman -S noto-fonts-emoji
+	$(PACMAN) noto-fonts-emoji
 	sudo ln -svf ${CURDIR}/etc/fonts/local.conf /etc/fonts/local.conf
 
 gnome:
 	dconf load / < ${CURDIR}/gnome/gnome.dconf
 
 fish:
-	sudo pacman -S fish
+	$(PACMAN) fish
 	chsh -s /bin/bash user01
 	echo "fish" >> ~/.bashrc
 	mkdir -p ${HOME}/.config/fish/functions
@@ -36,18 +39,18 @@ fish:
 	ln -svf ${CURDIR}/home/.config/fish/functions/fish_prompt.fish ${HOME}/.config/fish/functions/fish_prompt.fish
 
 git:
-	sudo pacman -S git-crypt github-cli tig
-	yay -S ghq-bin git-delta-bin
+	$(PACMAN) git-crypt github-cli tig
+	$(YAY) ghq-bin git-delta-bin
 	ln -svf ${CURDIR}/home/.gitconfig ${HOME}/.gitconfig
 	ln -svf ${CURDIR}/home/.gitignore_global ${HOME}/.gitignore_global
 	ln -svf ${CURDIR}/home/.gitmessage ${HOME}/.gitmessage
 
 tmux:
-	sudo pacman -S tmux
+	$(PACMAN) tmux
 	ln -svf ${CURDIR}/home/.tmux.conf ${HOME}/.tmux.conf
 
 vim:
-	sudo pacman -S neovim nodejs python-pynvim
+	$(PACMAN) neovim nodejs python-pynvim
 	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.vimrc
 	mkdir -p ${HOME}/.config/nvim
 	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.config/nvim/init.vim
@@ -55,7 +58,7 @@ vim:
 	echo "EDITOR=/usr/bin/nvim" >> ~/.bash_profile
 
 ssh:
-	sudo pacman -S openssh
+	$(PACMAN) openssh
 	mkdir -p ${HOME}/.ssh
 	ln -svf ${CURDIR}/home/.ssh/id_rsa ${HOME}/.ssh/id_rsa 
 	chmod 0600 ${HOME}/.ssh/id_rsa
@@ -68,35 +71,35 @@ gpg:
 	gpg --import-ownertrust ${CURDIR}/gpg/ownertrust.txt
 
 fcitx:
-	sudo pacman -S fcitx5-im fcitx5-mozc
+	$(PACMAN) fcitx5-im fcitx5-mozc
 	ln -svf ${CURDIR}/home/.pam_environment ${HOME}/.pam_environment
 	# TODO fcitx settings
 
 code:
-	yay -S visual-studio-code-bin
+	$(YAY) visual-studio-code-bin
 
 docker:
-	sudo pacman -S docker docker-compose
+	$(PACMAN) docker docker-compose
 	sudo usermod -aG docker ${USER}
 	sudo systemctl enable docker
 	sudo systemctl start docker
 
 mpv:
-	sudo pacman -S mpv
+	$(PACMAN) mpv
 	mkdir -p ${HOME}/.config/mpv/scripts
 	ln -svf ${CURDIR}/home/.config/mpv/input.conf ${HOME}/.config/mpv/input.conf
 	ln -svf ${CURDIR}/home/.config/mpv/mpv.conf ${HOME}/.config/mpv/mpv.conf
 	ln -svf ${CURDIR}/home/.config/mpv/scripts/ontop-playback.lua ${HOME}/.config/mpv/scripts/ontop-playback.lua
 
 ctf:
-	sudo pacman -S iaito r2ghidra
+	$(PACMAN) iaito r2ghidra
 
 alacritty:
-	sudo pacman -S alacritty
+	$(PACMAN) alacritty
 	mkdir -p ${HOME}/.config/alacritty
 	ln -svf ${CURDIR}/home/.config/alacritty/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
 
 i3:
-	sudo pacman -S i3
+	$(PACMAN) i3
 	mkdir -p ${HOME}/.config/i3
 	ln -svf ${CURDIR}/home/.config/i3/config ${HOME}/.config/i3/config
