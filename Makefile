@@ -7,31 +7,36 @@ define link
 	ln -svf $(CURDIR)/home/$(1) $(HOME)/$(1)
 endef
 
-.PHONY: allinstall update
 .DEFAULT_GOAL := update
  
+.PHONY: update
 update:
 	git add . -p
 	git status
 	git commit -m ":sparkles: update"
 	git push
 
+.PHONY: allinstall
 allinstall: pacman yay secrets font gnome fish git tmux vim fcitx code docker mpv ctf alacritty i3
 
+.PHONY: wslinstall
 wslinstall: fish git tmux vim
 	sudo pacman -Syu
 	$(PACMAN) base-devel
 
+.PHONY: pacman
 pacman:
 	sudo reflector --verbose --country 'Japan' --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 	sudo pacman -Syu
 	$(PACMAN) base-devel p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd wget openssh
 
+.PHONY: yay
 yay:
 	git clone https://aur.archlinux.org/yay.git /tmp/yay
 	cd /tmp/yay && makepkg -si
 	$(YAY) slack-desktop bvi
 
+.PHONY: secrets
 secrets:
 	wget https://github.com/dropbox/dbxcli/releases/download/v3.0.0/dbxcli-linux-amd64 -o /tmp/dbxcli
 	chmod +x /tmp/dbxcli
@@ -52,16 +57,19 @@ secrets:
 	gpg --import-ownertrust /tmp/ownertrust.txt
 	rm -f /tmp/private_key.gpg /tmp/public_key.gpg /tmp/ownertrust.txt
 
+.PHONY: font
 font:
 	$(PACMAN) noto-fonts-emoji
 	sudo ln -svf ${CURDIR}/etc/fonts/local.conf /etc/fonts/local.conf
 
+.PHONY: gnome
 gnome:
 	$(PACMAN) evince gdm gnome-backgrounds gnome-control-center gnome-keyring gnome-terminal nautilus sushi
 	$(YAY) xcursor-breeze papirus-maia-icon-theme-git
 	$(SYSTEMD) gdm.service
 	dconf load / < ${CURDIR}/gnome/gnome.dconf
 
+.PHONY: fish
 fish:
 	$(PACMAN) fish
 	chsh -s /bin/bash user01
@@ -70,6 +78,7 @@ fish:
 	$(call link,.config/fish/fish_variables)
 	$(call link,.config/fish/functions/fish_prompt.fish)
 
+.PHONY: git
 git:
 	$(PACMAN) git-crypt github-cli tig
 	$(YAY) ghq-bin git-delta-bin
@@ -77,10 +86,12 @@ git:
 	$(call link,.gitignore_global)
 	$(call link,.gitmessage)
 
+.PHONY: tmux
 tmux:
 	$(PACMAN) tmux
 	$(call link,.tmux.conf)
 
+.PHONY: vim
 vim:
 	$(PACMAN) neovim nodejs python-pynvim
 	$(call link,.vimrc)
@@ -89,33 +100,40 @@ vim:
 	sh -c 'curl -fLo "$${XDG_DATA_HOME:-$$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	echo "EDITOR=/usr/bin/nvim" >> ~/.bash_profile
 
+.PHONY: fcitx
 fcitx:
 	$(PACMAN) fcitx5-im fcitx5-mozc
 	$(call link,.pam_environment)
 	# TODO fcitx settings
 
+.PHONY: code
 code:
 	$(YAY) visual-studio-code-bin
 
+.PHONY: docker
 docker:
 	$(PACMAN) docker docker-compose
 	sudo usermod -aG docker ${USER}
 	sudo systemctl enable docker
 	sudo systemctl start docker
 
+.PHONY: mpv
 mpv:
 	$(PACMAN) mpv
 	$(call link,.config/mpv/input.conf)
 	$(call link,.config/mpv/mpv.conf)
 	$(call link,.config/mpv/scripts/ontop-playback.lua)
 
+.PHONY: ctf
 ctf:
 	$(PACMAN) iaito r2ghidra
 
+.PHONY: alacritty
 alacritty:
 	$(PACMAN) alacritty
 	$(call link,.config/alacritty/alacritty.yml)
 
+.PHONY: i3
 i3:
 	$(PACMAN) i3
 	$(call link,.config/i3/config)
