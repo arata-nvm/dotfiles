@@ -60,14 +60,14 @@ secrets:
 .PHONY: font
 font:
 	$(PACMAN) noto-fonts-emoji
-	sudo ln -svf ${CURDIR}/etc/fonts/local.conf /etc/fonts/local.conf
+	sudo ln -svf $(CURDIR)/etc/fonts/local.conf /etc/fonts/local.conf
 
 .PHONY: gnome
 gnome:
 	$(PACMAN) evince gdm gnome-backgrounds gnome-control-center gnome-keyring gnome-terminal nautilus sushi
 	$(YAY) xcursor-breeze papirus-maia-icon-theme-git
 	$(SYSTEMD) gdm.service
-	dconf load / < ${CURDIR}/gnome/gnome.dconf
+	dconf load / < $(CURDIR)/gnome/gnome.dconf
 
 .PHONY: fish
 fish:
@@ -95,8 +95,8 @@ tmux:
 vim:
 	$(PACMAN) neovim nodejs python-pynvim
 	$(call link,.vimrc)
-	mkdir -p ${HOME}/.config/nvim
-	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.config/nvim/init.vim
+	mkdir -p $(HOME)/.config/nvim
+	ln -svf $(CURDIR)/home/.vimrc $(HOME)/.config/nvim/init.vim
 	sh -c 'curl -fLo "$${XDG_DATA_HOME:-$$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	echo "EDITOR=/usr/bin/nvim" >> ~/.bash_profile
 
@@ -113,7 +113,7 @@ code:
 .PHONY: docker
 docker:
 	$(PACMAN) docker docker-compose
-	sudo usermod -aG docker ${USER}
+	sudo usermod -aG docker $(USER)
 	sudo systemctl enable docker
 	sudo systemctl start docker
 
