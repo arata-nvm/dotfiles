@@ -15,21 +15,41 @@ update:
 	git commit -m ":sparkles: update"
 	git push
 
-allinstall: pacman yay font gnome fish git tmux vim ssh gpg fcitx code docker mpv ctf alacritty i3
+allinstall: pacman yay secrets font gnome fish git tmux vim fcitx code docker mpv ctf alacritty i3
 
-wslinstall: fish git tmux vim ssh gpg
+wslinstall: fish git tmux vim
 	sudo pacman -Syu
 	$(PACMAN) base-devel
 
 pacman:
 	sudo reflector --verbose --country 'Japan' --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 	sudo pacman -Syu
-	$(PACMAN) base-devel p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd
+	$(PACMAN) base-devel p7zip trash-cli yay bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd wget openssh
 
 yay:
 	git clone https://aur.archlinux.org/yay.git /tmp/yay
 	cd /tmp/yay && makepkg -si
 	$(YAY) slack-desktop bvi
+
+secrets:
+	wget https://github.com/dropbox/dbxcli/releases/download/v3.0.0/dbxcli-linux-amd64 -o /tmp/dbxcli
+	chmod +x /tmp/dbxcli
+	
+	// ssh
+	/tmp/dbxcli get /Linux/.ssh/id_rsa $(HOME)/.ssh/id_rsa
+	/tmp/dbxcli get /Linux/.ssh/id_rsa.pub $(HOME)/.ssh/id_rsa.pub
+	chmod 600 $(HOME)/.ssh/id_rsa
+	chmod 600 $(HOME)/.ssh/id_rsa.pub
+	ssh-add $(HOME)/.ssh/id_rsa
+	
+	// gpg
+	/tmp/dbxcli get /Linux/gpg/private_key.gpg /tmp/private_key.gpg
+	/tmp/dbxcli get /Linux/gpg/public_key.gpg /tmp/public_key.gpg
+	/tmp/dbxcli get /Linux/gpg/ownertrust.txt /tmp/ownertrust.txt
+	gpg --import /tmp/private_key.gpg
+	gpg --import /tmp/public_key.gpg
+	gpg --import-ownertrust /tmp/ownertrust.txt
+	rm -f /tmp/private_key.gpg /tmp/public_key.gpg /tmp/ownertrust.txt
 
 font:
 	$(PACMAN) noto-fonts-emoji
@@ -64,18 +84,6 @@ vim:
 	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.config/nvim/init.vim
 	sh -c 'curl -fLo "$${XDG_DATA_HOME:-$$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	echo "EDITOR=/usr/bin/nvim" >> ~/.bash_profile
-
-ssh:
-	$(PACMAN) openssh
-	$(call link,.ssh/id_rsa)
-	chmod 0600 ${HOME}/.ssh/id_rsa
-	$(call link,.ssh/id_rsa.pub)
-	ssh-add ${HOME}/.ssh/id_rsa
-
-gpg:
-	gpg --import ${CURDIR}/gpg/public_key.gpg
-	gpg --import ${CURDIR}/gpg/private_key.gpg
-	gpg --import-ownertrust ${CURDIR}/gpg/ownertrust.txt
 
 fcitx:
 	$(PACMAN) fcitx5-im fcitx5-mozc
