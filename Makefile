@@ -71,7 +71,7 @@ gnome:
 .PHONY: fish
 fish:
 	$(PACMAN) fish
-	chsh -s /bin/bash user01
+	sudo chsh -s /bin/bash $(USER)
 	echo "fish" >> ~/.bashrc
 	$(call link,.config/fish/config.fish)
 	$(call link,.config/fish/fish_variables)
