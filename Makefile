@@ -1,5 +1,6 @@
 PACMAN := sudo pacman -S
 YAY := yay -S
+SYSTEMD := sudo systemctl enable
 
 define link
 	mkdir -p $(HOME)/$(1)
@@ -56,6 +57,9 @@ font:
 	sudo ln -svf ${CURDIR}/etc/fonts/local.conf /etc/fonts/local.conf
 
 gnome:
+	$(PACMAN) evince gdm gnome-backgrounds gnome-control-center gnome-keyring gnome-terminal nautilus sushi
+	$(YAY) xcursor-breeze papirus-maia-icon-theme-git
+	$(SYSTEMD) gdm.service
 	dconf load / < ${CURDIR}/gnome/gnome.dconf
 
 fish:
