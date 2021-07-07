@@ -1,6 +1,11 @@
 PACMAN := sudo pacman -S
 YAY := yay -S
 
+define link
+	mkdir -p $(HOME)/$(1)
+	ln -svf $(CURDIR)/home/$(1) $(HOME)/$(1)
+endef
+
 .PHONY: allinstall update
 .DEFAULT_GOAL := update
  
@@ -33,25 +38,24 @@ fish:
 	$(PACMAN) fish
 	chsh -s /bin/bash user01
 	echo "fish" >> ~/.bashrc
-	mkdir -p ${HOME}/.config/fish/functions
-	ln -svf ${CURDIR}/home/.config/fish/config.fish ${HOME}/.config/fish/config.fish
-	ln -svf ${CURDIR}/home/.config/fish/fish_variables ${HOME}/.config/fish/fish_variables
-	ln -svf ${CURDIR}/home/.config/fish/functions/fish_prompt.fish ${HOME}/.config/fish/functions/fish_prompt.fish
+	$(call link,.config/fish/config.fish)
+	$(call link,.config/fish/fish_variables)
+	$(call link,.config/fish/functions/fish_prompt.fish)
 
 git:
 	$(PACMAN) git-crypt github-cli tig
 	$(YAY) ghq-bin git-delta-bin
-	ln -svf ${CURDIR}/home/.gitconfig ${HOME}/.gitconfig
-	ln -svf ${CURDIR}/home/.gitignore_global ${HOME}/.gitignore_global
-	ln -svf ${CURDIR}/home/.gitmessage ${HOME}/.gitmessage
+	$(call link,.gitconfig)
+	$(call link,.gitignore_global)
+	$(call link,.gitmessage)
 
 tmux:
 	$(PACMAN) tmux
-	ln -svf ${CURDIR}/home/.tmux.conf ${HOME}/.tmux.conf
+	$(call link,.tmux.conf)
 
 vim:
 	$(PACMAN) neovim nodejs python-pynvim
-	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.vimrc
+	$(call link,.vimrc)
 	mkdir -p ${HOME}/.config/nvim
 	ln -svf ${CURDIR}/home/.vimrc ${HOME}/.config/nvim/init.vim
 	sh -c 'curl -fLo "$${XDG_DATA_HOME:-$$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -59,10 +63,9 @@ vim:
 
 ssh:
 	$(PACMAN) openssh
-	mkdir -p ${HOME}/.ssh
-	ln -svf ${CURDIR}/home/.ssh/id_rsa ${HOME}/.ssh/id_rsa 
+	$(call link,.ssh/id_rsa)
 	chmod 0600 ${HOME}/.ssh/id_rsa
-	ln -svf ${CURDIR}/home/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub 
+	$(call link,.ssh/id_rsa.pub)
 	ssh-add ${HOME}/.ssh/id_rsa
 
 gpg:
@@ -72,7 +75,7 @@ gpg:
 
 fcitx:
 	$(PACMAN) fcitx5-im fcitx5-mozc
-	ln -svf ${CURDIR}/home/.pam_environment ${HOME}/.pam_environment
+	$(call link,.pam_environment)
 	# TODO fcitx settings
 
 code:
@@ -86,10 +89,9 @@ docker:
 
 mpv:
 	$(PACMAN) mpv
-	mkdir -p ${HOME}/.config/mpv/scripts
-	ln -svf ${CURDIR}/home/.config/mpv/input.conf ${HOME}/.config/mpv/input.conf
-	ln -svf ${CURDIR}/home/.config/mpv/mpv.conf ${HOME}/.config/mpv/mpv.conf
-	ln -svf ${CURDIR}/home/.config/mpv/scripts/ontop-playback.lua ${HOME}/.config/mpv/scripts/ontop-playback.lua
+	$(call link,.config/mpv/input.conf)
+	$(call link,.config/mpv/mpv.conf)
+	$(call link,.config/mpv/scripts/ontop-playback.lua)
 
 ctf:
 	$(PACMAN) iaito r2ghidra
@@ -97,9 +99,9 @@ ctf:
 alacritty:
 	$(PACMAN) alacritty
 	mkdir -p ${HOME}/.config/alacritty
-	ln -svf ${CURDIR}/home/.config/alacritty/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
+	$(call link,.config/alacritty/alacritty.yml)
 
 i3:
 	$(PACMAN) i3
 	mkdir -p ${HOME}/.config/i3
-	ln -svf ${CURDIR}/home/.config/i3/config ${HOME}/.config/i3/config
+	$(call link,.config/i3/config)
