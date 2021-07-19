@@ -79,8 +79,8 @@ fish:
 
 .PHONY: git
 git:
-	$(PACMAN) git-crypt github-cli tig
-	$(YAY) ghq-bin git-delta-bin
+	$(PACMAN) git-crypt github-cli tig git-delta
+	$(YAY) ghq-bin
 	$(call link,.gitconfig)
 	$(call link,.gitignore_global)
 	$(call link,.gitmessage)
