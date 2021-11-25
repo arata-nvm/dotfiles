@@ -18,30 +18,31 @@ update:
 
 .PHONY: allinstall
 allinstall: pacman yay secrets font gnome fish git tmux vim fcitx code mpv ctf alacritty i3
+	$(PACMAN) p7zip trash-cli bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd openssh xsel
+	$(YAY) slack-desktop bvi google-chrome
+
 
 .PHONY: wslinstall
-wslinstall: fish git tmux vim
-	sudo pacman -Syu
-	$(PACMAN) base-devel
+wslinstall: pacman yay secrets fish git tmux vim docker
+	$(PACMAN) p7zip bat ripgrep openssh
 
 .PHONY: pacman
 pacman:
-	sudo reflector --verbose --country 'Japan' --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+	echo 'Server = http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/$$repo/os/$$arch' | sudo tee /etc/pacman.d/mirrorlist
 	sudo pacman -Syu
-	$(PACMAN) base-devel p7zip trash-cli bat clang gdb ffmpeg ltrace strace nasm vagrant virtualbox discord firefox-developer-edition youtube-dl fd ripgrep hexyl exa hyperfine sd wget openssh xsel
 
 .PHONY: yay
 yay:
-	git clone https://aur.archlinux.org/yay.git /tmp/yay
+	rm -rf /tmp/yay && git clone https://aur.archlinux.org/yay.git /tmp/yay
 	cd /tmp/yay && makepkg -si --noconfirm
-	$(YAY) slack-desktop bvi google-chrome
 
 .PHONY: secrets
 secrets:
-	wget https://github.com/dropbox/dbxcli/releases/download/v3.0.0/dbxcli-linux-amd64 -O /tmp/dbxcli
+	rm -rf /tmp/dbxcli && wget -4 https://github.com/dropbox/dbxcli/releases/download/v3.0.0/dbxcli-linux-amd64 -O /tmp/dbxcli
 	chmod +x /tmp/dbxcli
 	
 	# ssh
+	mkdir -p $(HOME)/.ssh
 	/tmp/dbxcli get /Linux/.ssh/id_rsa $(HOME)/.ssh/id_rsa
 	/tmp/dbxcli get /Linux/.ssh/id_rsa.pub $(HOME)/.ssh/id_rsa.pub
 	chmod 600 $(HOME)/.ssh/id_rsa
